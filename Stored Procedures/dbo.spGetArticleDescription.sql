@@ -7,12 +7,13 @@ GO
 --SET ANSI_NULLS ON|OFF
 
 CREATE PROCEDURE [dbo].[spGetArticleDescription]
-	@ArticlesID AS int
+	@ArticlesID AS int = NULL
 /*
 Description:
 This procedure should return a specific article's name and description.
-*/
-AS
+*/AS
+
+IF @articlesID IS NOT NULL
 	SELECT  a.ArticleID ,
 	        a.Title ,
 	        a.[Description] ,
@@ -24,5 +25,6 @@ AS
 	  INNER JOIN dbo.ArticlesDescriptions ad
 	   ON a.ArticleID = ad.ArticlesID
 	   WHERE a.ArticleID = @ArticlesID
-
+ELSE  SELECT 'ArticleID' = NULL
+RETURN
 GO
